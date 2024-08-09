@@ -1,1 +1,123 @@
-<p>Display the subdivision data here!</p>
+<br>
+<div class="container">
+  <!-- Dropdown Filter By Status -->
+  
+  <div class="">
+    <div class="label-status">
+      Filter By Status
+    </div>
+    <select [(ngModel)]="statusFilter" (change)="setStatusFilter(statusFilter)">
+      <option [value]="''">All</option>
+      <option *ngFor="let status of statusFilterList" [value]="status">{{status}}</option>
+    </select>
+  </div>
+
+  <!-- Table Container for Scrolling -->
+  <div class="table-container">
+    <!-- Table -->
+    <table>
+      <thead>
+        <tr>
+          <th (click)="setSortField('name')" [ngClass]="{'sorted': sortField === 'name'}">
+            Name
+            <!-- Sort icon for Name column -->
+            <span class="sort-icon" [ngClass]="{'asc': sortField === 'name' && sortDirection === 'asc', 'desc': sortField === 'name' && sortDirection === 'desc'}"></span>
+          </th>
+          <th>Code</th>
+          <th>Longitude</th>
+          <th>Latitude</th>
+          <th>Field Survey Territory ID</th>
+          <th>Market ID</th>
+          <th>Subdivision Status ID</th>
+          <th>Survey Method ID</th>
+          <th>Active Sections</th>
+          <th>Future Sections</th>
+          <th>Builtout Sections</th>
+          <th>Total Lots</th>
+          <th>Field Survey Territory</th>
+          <th>Market Name</th>
+          <th>Market Abbreviation</th>
+          <th>Status</th>
+          <th>Survey Method</th>
+          <th>County</th>
+          <th>Community</th>
+          <th>Zoom17 Date</th>
+          <th>Zoom18 Date</th>
+          <th>Subdivision Geometry ID</th>
+          <th>Bounding Box ID</th>
+          <th>Boundary ID</th>
+          <th>Intelligence Boundary ID</th>
+          <th>Intelligence Boundary Status ID</th>
+          <th>Intelligence Boundary Status</th>
+          <th>Intelligence Boundary Status Change Date</th>
+          <th (click)="setSortField('nearMapImageDate')" [ngClass]="{'sorted': sortField === 'nearMapImageDate'}">
+            NearMap Image Date
+            <!-- Sort icon for NearMap Image Date column -->
+            <span class="sort-icon" [ngClass]="{'asc': sortField === 'nearMapImageDate' && sortDirection === 'asc', 'desc': sortField === 'nearMapImageDate' && sortDirection === 'desc'}"></span>
+          </th>
+          <th>Image Box ID</th>
+          <th>Most Recent IPoint Batch Date</th>
+          <th>iPoints</th>
+          <th>Validated iPoints</th>
+          <th>Subdivision Specific Status</th>
+        </tr>
+      </thead>
+      
+      <tbody>
+        <tr *ngFor="let subdivision of paginatedSubdivisions">
+          <td>{{ subdivision.name }}</td>
+          <td>{{ subdivision.code }}</td>
+          <td>{{ subdivision.longitude }}</td>
+          <td>{{ subdivision.latitude }}</td>
+          <td>{{ subdivision.fieldSurveyTerritoryId }}</td>
+          <td>{{ subdivision.marketId }}</td>
+          <td>{{ subdivision.subdivisionStatusId }}</td>
+          <td>{{ subdivision.surveyMethodId }}</td>
+          <td>{{ subdivision.activeSections }}</td>
+          <td>{{ subdivision.futureSections }}</td>
+          <td>{{ subdivision.builtOutSections }}</td>
+          <td>{{ subdivision.totalLots }}</td>
+          <td>{{ subdivision.fieldSurveyTerritoryName }}</td>
+          <td>{{ subdivision.marketName }}</td>
+          <td>{{ subdivision.marketAbbreviation }}</td>
+          <td>{{ subdivision.subdivisionStatusCode }}</td>
+          <td>{{ subdivision.surveyMethodCode }}</td>
+          <td>{{ subdivision.county }}</td>
+          <td>{{ subdivision.community }}</td>
+          <td>{{ subdivision.zoom17Date | date }}</td>
+          <td>{{ subdivision.zoom18Date | date }}</td>
+          <td>{{ subdivision.subdivisionGeometryId }}</td>
+          <td>{{ subdivision.subdivisionGeometryBoundingBoxId }}</td>
+          <td>{{ subdivision.subdivisionGeometryBoundaryId }}</td>
+          <td>{{ subdivision.subdivisionGeometryIntelligenceBoundaryId }}</td>
+          <td>{{ subdivision.subdivisionGeometryIntelligenceBoundaryStatusId }}</td>
+          <td>{{ subdivision.subdivisionGeometryIntelligenceBoundaryStatusCode }}</td>
+          <td>{{ subdivision.subdivisionGeometryIntelligenceBoundaryStatusChangeDate | date }}</td>
+          <td>{{ subdivision.nearMapImageDate | date }}</td>
+          <td>{{ subdivision.imageBoxId }}</td>
+          <td>{{ subdivision.mostRecentIPointBatchDate | date }}</td>
+          <td>{{ subdivision.iPoints }}</td>
+          <td>{{ subdivision.validatediPoints }}</td>
+          <td>{{ subdivision.subdivisionSpecificStatus }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination Controls -->
+  <div class="pagination">
+    <div class="label-page">
+      Select Items per page
+    </div>
+    <div class="page-dropdown">
+      <select [(ngModel)]="pageSize" (change)="setPageCount(pageSize)">
+        <option *ngFor="let count of pageCountList" [value]="count">{{count}}</option>
+      </select>
+    </div>
+    <div class="paginate-container">
+      <button class="paginate-button" (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+      <div class="paginate-button label-page-inner">Page {{ currentPage }} of {{ totalPages }}</div>
+      <button class="paginate-button" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+    </div>
+  </div>
+</div>
